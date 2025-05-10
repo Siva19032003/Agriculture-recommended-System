@@ -1,0 +1,224 @@
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* Market Overview Section */
+.market-overview {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+.market-overview h2 {
+    margin: 0 0 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4CAF50;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4CAF50;
+}
+
+/* Market Trends Section */
+.market-trends {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+.market-trends h2 {
+    margin: 0 0 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4CAF50;
+}
+
+#trendsChart {
+    max-width: 100%;
+    height: 400px;
+}
+
+/* Top Products Section */
+.top-products {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+.top-products h2 {
+    margin: 0 0 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4CAF50;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: 500;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .stat-card p {
+        font-size: 1.25rem;
+    }
+
+    #trendsChart {
+        height: 300px;
+    }
+}
+
+/* Side Navigation Bar */
+.sidenav {
+    height: 100%;
+    width: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #125214;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 40px;
+    z-index: 1001;
+  }
+  
+  .sidenav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    background-color: #45a049;
+  }
+  
+  .sidenav .nav-item {
+    display: none;
+    margin-left: 10px;
+  }
+  
+  .sidenav.expanded {
+    width: 250px;
+  }
+  
+  .sidenav.expanded .nav-item {
+    display: inline;
+  }
+  
+  /* Toggle Button */
+  .toggle-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;
+  }
+  
+  .toggle-btn:hover {
+    background-color: #45a049;
+  }

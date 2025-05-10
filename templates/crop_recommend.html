@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation - CropAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Crop.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-image">
+        <div class="header-content">
+            <h1>Crop Recommendation</h1>
+            <p>Choose the Best Crop for Your Field</p>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn" id="settingsBtn" onclick="window.location.href = '{{ url_for('settings') }}'">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="icon-btn" id="adminLoginBtn" onclick="window.location.href = '{{ url_for('market') }}'">
+                <i class="fas fa-user-lock"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Navigation Bar -->
+    <div class="sidenav" id="sidenav">
+        <!-- Toggle Button -->
+        <button class="toggle-btn" id="toggleBtn">
+            <i class="fas fa-bars"></i>
+            <span class="nav-item">Menu</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="{{ url_for('home') }}">
+            <i class="fas fa-home"></i>
+            <span class="nav-item">Home</span>
+        </a>
+        <a href="{{ url_for('crop_recommend') }}">
+            <i class="fas fa-seedling"></i>
+            <span class="nav-item">Crop Recommendation</span>
+        </a>
+        <a href="{{ url_for('fertilizer_suggestion') }}">
+            <i class="fas fa-tint"></i>
+            <span class="nav-item">Fertilizer Suggestion</span>
+        </a>
+        <a href="{{ url_for('irrigation_advice') }}">
+            <i class="fas fa-tractor"></i>
+            <span class="nav-item">Irrigation Advice</span>
+        </a>
+        <a href="{{ url_for('rotational_crop') }}">
+            <i class="fas fa-recycle"></i>
+            <span class="nav-item">Rotational Crop</span>
+        </a>
+        <a href="{{ url_for('weather') }}">
+            <i class="fas fa-cloud-sun"></i>
+            <span class="nav-item">Weather Forecast</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Introduction Section -->
+        <section class="intro-section">
+            <h2>Crop Recommendation</h2>
+            <p>
+                Crop recommendation is a vital tool for modern agriculture. By analyzing soil properties, weather conditions, and historical data, farmers can make informed decisions about which crops to grow. This system uses machine learning algorithms to provide personalized crop recommendations, helping farmers maximize their yields and optimize resource usage.
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 id="crop-use">Why Use Crop Recommendation?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Increased Crop Yield</h3>
+                    <p>Get crop suggestions based on soil type, climate conditions, and historical data.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tint"></i>
+                    <h3>Reduced Resource Wastage</h3>
+                    <p>Prevent soil degradation and improve productivity with tailored fertilizer suggestions.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Better Adaptation to Climate</h3>
+                    <p>Maintain soil health and reduce pest infestations with effective crop rotation plans.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crop Recommendation Form -->
+<section class="form-section">
+        <h1 id="crop-recommendation">Best Crop Recommendation For Your Field</h1>
+        <form action="/crop_recommend" method="POST" class="crop-form">
+            <h2 id="crop_heading">Get Your Crop Recommendation</h2>
+            <div class="form-group" id="soil-properties">
+                <div>
+                    <label for="nitrogen"><i class="fas fa-atom"></i> Nitrogen (N):</label>
+                    <input type="number" id="nitrogen" name="nitrogen" placeholder="Enter nitrogen level" required>
+                </div>
+                <div>
+                    <label for="phosphorus"><i class="fas fa-leaf"></i> Phosphorus (P):</label>
+                    <input type="number" id="phosphorus" name="phosphorus" placeholder="Enter phosphorus level" required>
+                </div>
+                <div>
+                    <label for="potassium"><i class="fas fa-fire"></i> Potassium (K):</label>
+                    <input type="number" id="potassium" name="potassium" placeholder="Enter potassium level" required>
+                </div>
+            </div>
+            <div class="form-group" id="sensor-data">
+                <label for="temperature"><i class="fas fa-thermometer-half"></i> Temperature (°C):</label>
+                <input type="number" id="temperature" name="temperature" placeholder="Enter temperature" required>
+            </div>
+            <div class="form-group">
+                <label for="humidity"><i class="fas fa-tint"></i> Humidity (%):</label>
+                <input type="number" id="humidity" name="humidity" placeholder="Enter humidity level" required>
+            </div>
+            <div class="form-group">
+                <label for="ph"><i class="fas fa-flask"></i> Soil pH:</label>
+                <input type="number" id="ph" name="ph" step="0.1" placeholder="Enter soil pH" required>
+            </div>
+            <div class="form-group rainfall">
+                <label for="rainfall"><i class="fas fa-cloud-rain"></i> Rainfall (mm):</label>
+                <input type="number" id="rainfall" name="rainfall" placeholder="Rainfall data will appear here" readonly>
+                
+                <button type="button" id="rainfall-btn" onclick="getLocation()">Fetch Rainfall Data</button>
+                
+                
+            </div>
+            <button type="submit" class="submit-btn">Get Recommendation</button>
+        </form>
+    </section>
+
+        <!-- Result Section -->
+        {% if prediction %}
+        <section class="result-section">
+            <h2>Recommended Crop</h2>
+            <div class="result-card">
+                <i class="fas fa-check-circle"></i>
+                <p>{{ prediction }}</p>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Back to Home Button -->
+        <div class="back-to-home">
+            <a href="{{ url_for('home') }}"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="#crop-recommendation">Crop Recommendation form</a>
+                <a href="#crop-use">Uses</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="{{ url_for('facebook') }}"><i class="fab fa-facebook"></i></a>
+                <a href="{{ url_for('twitter') }}"><i class="fab fa-twitter"></i></a>
+                <a href="{{ url_for('instagram') }}"><i class="fab fa-instagram"></i></a>
+                <a href="{{ url_for('linkedIn') }}"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Smart Crop agriculture recommended system. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue, query, limitToLast } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBMAW77DLSNTifqj9-o4B7fye12wn2-psA",
+          authDomain: "agriculture-recommeded-system.firebaseapp.com",
+          databaseURL: "https://agriculture-recommeded-system-default-rtdb.firebaseio.com",
+          projectId: "agriculture-recommeded-system",
+          storageBucket: "agriculture-recommeded-system.firebasestorage.app",
+          messagingSenderId: "435524847697",
+          appId: "1:435524847697:web:f71003a635ed0b35a05070",
+          measurementId: "G-H238D2QHH2"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app); // Initialize Realtime Database
+    
+        // Reference to the sensor_data node in your database
+        const sensorDataRef = ref(database, 'sensor_data');
+    
+        // Query to get the last entry
+        const recentSensorDataQuery = query(sensorDataRef, limitToLast(1));
+    
+        // Fetch and update the input fields with the most recent data
+        onValue(recentSensorDataQuery, (snapshot) => {
+          const data = snapshot.val(); // Get the data
+    
+          if (data) {
+            // Get the last entry
+            const lastEntryKey = Object.keys(data)[0];
+            const lastEntry = data[lastEntryKey];
+    
+            // Update the input fields
+            document.getElementById('humidity').value = lastEntry.humidity;
+            document.getElementById('temperature').value = lastEntry.temperature;
+          } else {
+            // Clear the input fields if no data is found
+            document.getElementById('humidity').value = '';
+            document.getElementById('temperature').value = '';
+          }
+        });
+      </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='live_rainfall.js') }}"></script>
+</body>
+</html>

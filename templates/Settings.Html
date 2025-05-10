@@ -1,0 +1,110 @@
+</html<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/settings.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+
+      <!-- Side Navigation Bar -->
+  <div class="sidenav" id="sidenav">
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+        <span class="nav-item">Menu</span>
+    </button>
+
+    <!-- Navigation Links -->
+    <a href="{{ url_for('home') }}">
+        <i class="fas fa-home"></i>
+        <span class="nav-item">Home</span>
+    </a>
+    <a href="{{ url_for('crop_recommend') }}">
+        <i class="fas fa-seedling"></i>
+        <span class="nav-item">Crop Recommendation</span>
+    </a>
+    <a href="{{ url_for('fertilizer_suggestion') }}">
+        <i class="fas fa-tint"></i>
+        <span class="nav-item">Fertilizer Suggestion</span>
+    </a>
+    <a href="{{ url_for('irrigation_advice') }}">
+        <i class="fas fa-tractor"></i>
+        <span class="nav-item">Irrigation Advice</span>
+    </a>
+    <a href="{{ url_for('rotational_crop') }}">
+        <i class="fas fa-recycle"></i>
+        <span class="nav-item">Rotational Crop</span>
+    </a>
+    <a href="{{ url_for('weather') }}">
+        <i class="fas fa-cloud-sun"></i>
+        <span class="nav-item">Weather Forecast</span>
+    </a>
+</div>
+
+    <header>
+        <h1>Settings</h1>
+    </header>
+
+    <main>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Profile Settings Form -->
+        <section class="settings-section">
+            <h2>Profile Settings</h2>
+            <form method="POST" action="{{ url_for('settings') }}">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="{{ user.username }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}" required>
+                </div>
+                <button type="submit" class="btn">Save Profile</button>
+            </form>
+        </section>
+
+        <!-- Notification Settings -->
+        <section class="settings-section">
+            <h2>Notification Settings</h2>
+            <form method="POST" action="{{ url_for('settings') }}">
+                <div class="form-group">
+                    <label for="notifications">Enable Notifications</label>
+                    <input type="checkbox" id="notifications" name="notifications" {{ 'checked' if user.notifications else '' }}>
+                </div>
+                <button type="submit" class="btn">Save Notifications</button>
+            </form>
+        </section>
+
+        <!-- Theme Settings -->
+        <section class="settings-section">
+            <h2>Theme Settings</h2>
+            <form method="POST" action="{{ url_for('settings') }}">
+                <div class="form-group">
+                    <label for="theme">Select Theme</label>
+                    <select id="theme" name="theme">
+                        <option value="light" {{ 'selected' if user.theme == 'light' else '' }}>Light</option>
+                        <option value="dark" {{ 'selected' if user.theme == 'dark' else '' }}>Dark</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Save Theme</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='settings.js') }}"></script>
+</body>
+</html>

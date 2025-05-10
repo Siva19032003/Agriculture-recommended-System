@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/weather_forecast.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+
+    <!-- Side Navigation Bar -->
+<div class="sidenav" id="sidenav">
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+        <span class="nav-item">Menu</span>
+    </button>
+
+    <!-- Navigation Links -->
+    <a href="{{ url_for('home') }}">
+        <i class="fas fa-home"></i>
+        <span class="nav-item">Home</span>
+    </a>
+    <a href="{{ url_for('crop_recommend') }}">
+        <i class="fas fa-seedling"></i>
+        <span class="nav-item">Crop Recommendation</span>
+    </a>
+    <a href="{{ url_for('fertilizer_suggestion') }}">
+        <i class="fas fa-tint"></i>
+        <span class="nav-item">Fertilizer Suggestion</span>
+    </a>
+    <a href="{{ url_for('irrigation_advice') }}">
+        <i class="fas fa-tractor"></i>
+        <span class="nav-item">Irrigation Advice</span>
+    </a>
+    <a href="{{ url_for('rotational_crop') }}">
+        <i class="fas fa-recycle"></i>
+        <span class="nav-item">Rotational Crop</span>
+    </a>
+    <a href="{{ url_for('weather') }}">
+        <i class="fas fa-cloud-sun"></i>
+        <span class="nav-item">Weather Forecast</span>
+    </a>
+    
+    
+</div>
+
+    <div class="container">
+        <h2>🌤 Weather Forecast</h2>
+        
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Enter city name...">
+            <button onclick="getWeather()">Search</button>
+        </div>
+
+        <div class="weather-card-grid">
+            <div class="weather-card">
+                <p>Temperature</p>
+                <p class="value" id="temperature">--°C</p>
+            </div>
+            <div class="weather-card">
+                <p>Humidity</p>
+                <p class="value" id="humidity">--%</p>
+            </div>
+            <div class="weather-card">
+                <p>Rainfall</p>
+                <p class="value" id="rainfall">-- mm</p>
+            </div>
+            <div class="weather-card">
+                <p>Wind Speed</p>
+                <p class="value" id="wind-speed">-- m/s</p>
+            </div>
+            <div class="weather-card">
+                <p>Cloudiness</p>
+                <p class="value" id="cloudiness">--%</p>
+            </div>
+            <div class="weather-card">
+                <p>Visibility</p>
+                <p class="value" id="visibility">-- m</p>
+            </div>
+            <div class="weather-card">
+                <p>Pressure</p>
+                <p class="value" id="pressure">-- hPa</p>
+            </div>
+            <div class="weather-card">
+                <p>Feels Like</p>
+                <p class="value" id="feels-like">--°C</p>
+            </div>
+            <div class="weather-card">
+                <p>Sunrise</p>
+                <p class="value" id="sunrise">--</p>
+            </div>
+            <div class="weather-card">
+                <p>Sunset</p>
+                <p class="value" id="sunset">--</p>
+            </div>
+            <div class="weather-card">
+                <p>Country</p>
+                <p class="value" id="country">--</p>
+            </div>
+            <div class="weather-card">
+                <p>Coordinates</p>
+                <p class="value" id="coord">--</p>
+            </div>
+        </div>
+
+        <div class="forecast">
+            <h3>Weekly Forecast</h3>
+            <div id="forecast-container"></div>
+        </div>
+    </div>
+    
+
+    <script src="{{ url_for('static', filename='weather.js') }}"></script>
+</body>
+</html>

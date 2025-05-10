@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles/result.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ module }} Result</h1>
+        <p>The recommended output is: <strong>{{ prediction }}</strong></p>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

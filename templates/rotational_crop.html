@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Rotation - CropAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/rotation.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-image">
+        <div class="header-content">
+            <h1>Crop Rotation</h1>
+            <p>Improve Soil Health and Sustainability with Rotational Cropping</p>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn" id="settingsBtn" onclick="window.location.href = '{{ url_for('settings') }}'">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="icon-btn" id="adminLoginBtn" onclick="window.location.href = '{{ url_for('market') }}'">
+                <i class="fas fa-user-lock"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Navigation Bar -->
+    <div class="sidenav" id="sidenav">
+        <!-- Toggle Button -->
+        <button class="toggle-btn" id="toggleBtn">
+            <i class="fas fa-bars"></i>
+            <span class="nav-item">Menu</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="{{ url_for('home') }}">
+            <i class="fas fa-home"></i>
+            <span class="nav-item">Home</span>
+        </a>
+        <a href="{{ url_for('crop_recommend') }}">
+            <i class="fas fa-seedling"></i>
+            <span class="nav-item">Crop Recommendation</span>
+        </a>
+        <a href="{{ url_for('fertilizer_suggestion') }}">
+            <i class="fas fa-tint"></i>
+            <span class="nav-item">Fertilizer Suggestion</span>
+        </a>
+        <a href="{{ url_for('irrigation_advice') }}">
+            <i class="fas fa-tractor"></i>
+            <span class="nav-item">Irrigation Advice</span>
+        </a>
+        <a href="{{ url_for('rotational_crop') }}">
+            <i class="fas fa-recycle"></i>
+            <span class="nav-item">Rotational Crop</span>
+        </a>
+        <a href="{{ url_for('weather') }}">
+            <i class="fas fa-cloud-sun"></i>
+            <span class="nav-item">Weather Forecast</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Introduction Section -->
+        <section class="intro-section">
+            <h2>Crop Rotation</h2>
+            <p>
+                Rotational cropping is an agricultural practice where different crops are planted in a specific sequence on the same land over several growing seasons. This method helps to maintain soil fertility, reduce pest and disease buildup, and enhance crop yields. By rotating crops with varying nutrient needs and growth cycles, rotational cropping improves the overall health of the soil, reduces dependency on chemical fertilizers, and helps break cycles of pests and diseases that often target a particular crop.
+            </p>
+            <p>
+                The primary goal of rotational cropping is to create a sustainable farming system that enhances soil structure, conserves water, and reduces environmental impact. It is a key component of sustainable agriculture and helps farmers increase biodiversity, optimize the use of resources, and improve long-term productivity.
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 id="why-use">Why Use Crop Rotation?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Pest and Disease Control</h3>
+                    <p>Helps break pest and disease cycles by preventing the buildup of specific pathogens associated with a single crop.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tint"></i>
+                    <h3>Improved Soil Structure</h3>
+                    <p>Certain crops, like legumes, fix nitrogen in the soil, improving soil structure and organic matter.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Soil Fertility Enhancement</h3>
+                    <p>Rotating crops with different nutrient needs prevents soil depletion, maintaining long-term fertility.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rotational Crop Form -->
+        <section class="form-section">
+            <h1 id="rotational-crop">Rotational Crop Suggestion Form</h1>
+            <form action="/rotational_crop" method="POST" class="rotation-form">
+                <h3>Get Your Rotational Crop Recommendation</h3>
+                <div class="form-group">
+                    <label for="previous_crop"><i class="fas fa-seedling"></i> Previous Crop:</label>
+                    <select id="previous_crop" name="previous_crop" required>
+                        <option value="">-- Select Previous Crop --</option>
+                        <option value="Sugarcane">Sugarcane</option>
+                        <option value="Barley">Barley</option>
+                        <option value="Potato">Potato</option>
+                        <option value="Soybean">Soybean</option>
+                        <option value="Peanut">Peanut</option>
+                        <option value="Maize">Maize</option>
+                        <option value="Cotton">Cotton</option>
+                        <option value="Rice">Rice</option>
+                        <option value="Wheat">Wheat</option>
+                        <option value="Tomato">Tomato</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="soil_ph"><i class="fas fa-flask"></i> Soil pH:</label>
+                    <input type="number" id="soil_ph" name="soil_ph" step="0.1" placeholder="Enter soil pH" required>
+                </div>
+                <div class="form-group">
+                    <label for="soil_moisture"><i class="fas fa-tint"></i> Soil Moisture (%):</label>
+                    <input type="number" id="soil_moisture" name="soil_moisture" placeholder="Enter soil moisture" required>
+                </div>
+                <div class="form-group" id="soil-properties">
+                    <div>
+                        <label for="nitrogen"><i class="fas fa-atom"></i> Nitrogen (N):</label>
+                        <input type="number" id="nitrogen" name="nitrogen" placeholder="Enter nitrogen level" required>
+                    </div>
+                    <div>
+                        <label for="phosphorus"><i class="fas fa-leaf"></i> Phosphorus (P):</label>
+                        <input type="number" id="phosphorus" name="phosphorus" placeholder="Enter phosphorus level" required>
+                    </div>
+                    <div>
+                        <label for="potassium"><i class="fas fa-fire"></i> Potassium (K):</label>
+                        <input type="number" id="potassium" name="potassium" placeholder="Enter potassium level" required>
+                    </div>
+                </div>
+                <div class="form-group" id="sensor-data">
+                    <div>
+                        <label for="temperature"><i class="fas fa-thermometer-half"></i> Temperature (°C):</label>
+                        <input type="number" id="temperature" name="temperature" placeholder="Enter temperature" required>
+                    </div>
+                    <div>
+                        <label for="humidity"><i class="fas fa-cloud" id="humi"></i> Humidity (%):</label>
+                        <input type="number" id="humidity" name="humidity" placeholder="Enter humidity" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="rainfall"><i class="fas fa-cloud-rain"></i> Rainfall (mm):</label>
+                    <input type="number" id="rainfall" name="rainfall" placeholder="Rainfall data will appear here" readonly>
+                    <button type="button" id="rainfall-btn" onclick="getLocation()">Fetch Rainfall Data</button>
+                </div>
+                <button type="submit" class="submit-btn">Suggest Rotational Crop</button>
+            </form>
+        </section>
+
+        <!-- Result Section -->
+        {% if prediction %}
+        <section class="result-section">
+            <h2>Recommended Rotational Crop</h2>
+            <div class="result-card">
+                <i class="fas fa-check-circle"></i>
+                <p>{{ prediction }}</p>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Back to Home Button -->
+        <div class="back-to-home">
+            <a href="{{ url_for('home') }}"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="#why-use">why-use</a>
+                <a href="#rotational-crop">form</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="{{ url_for('facebook') }}"><i class="fab fa-facebook"></i></a>
+                <a href="{{ url_for('twitter') }}"><i class="fab fa-twitter"></i></a>
+                <a href="{{ url_for('instagram') }}"><i class="fab fa-instagram"></i></a>
+                <a href="{{ url_for('linkedIn') }}"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Smart Crop agriculture recommended system. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue, query, limitToLast } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBMAW77DLSNTifqj9-o4B7fye12wn2-psA",
+          authDomain: "agriculture-recommeded-system.firebaseapp.com",
+          databaseURL: "https://agriculture-recommeded-system-default-rtdb.firebaseio.com",
+          projectId: "agriculture-recommeded-system",
+          storageBucket: "agriculture-recommeded-system.firebasestorage.app",
+          messagingSenderId: "435524847697",
+          appId: "1:435524847697:web:f71003a635ed0b35a05070",
+          measurementId: "G-H238D2QHH2"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app); // Initialize Realtime Database
+    
+        // Reference to the sensor_data node in your database
+        const sensorDataRef = ref(database, 'sensor_data');
+    
+        // Query to get the last entry
+        const recentSensorDataQuery = query(sensorDataRef, limitToLast(1));
+    
+        // Fetch and update the input fields with the most recent data
+        onValue(recentSensorDataQuery, (snapshot) => {
+          const data = snapshot.val(); // Get the data
+    
+          if (data) {
+            // Get the last entry
+            const lastEntryKey = Object.keys(data)[0];
+            const lastEntry = data[lastEntryKey];
+    
+            // Update the input fields
+            document.getElementById('humidity').value = lastEntry.humidity;
+            document.getElementById('soil_moisture').value = lastEntry.soil_moisture;
+            document.getElementById('temperature').value = lastEntry.temperature;
+          } else {
+            // Clear the input fields if no data is found
+            document.getElementById('humidity').value = '';
+            document.getElementById('soil_moisture').value = '';
+            document.getElementById('temperature').value = '';
+          }
+        });
+      </script>
+    <script src="{{ url_for('static', filename='live_rainfall.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

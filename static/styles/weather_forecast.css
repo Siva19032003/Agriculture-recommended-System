@@ -1,0 +1,268 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #75b1f0, #2575fc);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: rgba(186, 184, 184, 0.218);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h2, h3 {
+    margin: 0;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+/* Search Box */
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#city-input {
+    padding: 10px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    width: 70%;
+    max-width: 300px;
+    font-size: 1rem;
+    outline: none;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    background: #2575fc;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #1a5bbf;
+}
+
+/* Weather Card Grid */
+.weather-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.weather-card {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.weather-card p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.weather-card .value {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Highlighted Values */
+#temperature .value {
+    color: #ff6b6b; /* Red for temperature */
+}
+
+#humidity .value {
+    color: #4dabf7; /* Blue for humidity */
+}
+
+#pressure .value {
+    color: #69db7c; /* Green for pressure */
+}
+
+#rainfall .value {
+    color: #ffd43b; /* Yellow for rainfall */
+}
+
+#weather-icon {
+    width: 80px;
+    height: 80px;
+    margin: 10px 0;
+}
+
+/* Forecast Section */
+.forecast {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#forecast-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.forecast-item {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.forecast-item:hover {
+    transform: scale(1.05);
+}
+
+.forecast-item img {
+    width: 50px;
+    height: 50px;
+}
+
+.forecast-item p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    #city-input {
+        width: 60%;
+    }
+
+    .weather-card-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .forecast-item {
+        width: 80px;
+    }
+}
+
+
+
+
+a:hover {
+    background: #0056b3;
+}
+
+
+
+  /* Side Navigation Bar */
+  .sidenav {
+    height: 100%;
+    width: 60px; /* Initial width (icons only) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #7f8838;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 40px;
+    z-index: 1001;
+  }
+  
+  .sidenav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    background-color: #45a049;
+  }
+  
+  .sidenav .nav-item {
+    display: none; /* Hide text initially */
+    margin-left: 10px;
+  }
+  
+  .sidenav.expanded {
+    width: 250px; /* Expanded width */
+  }
+  
+  .sidenav.expanded .nav-item {
+    display: inline; /* Show text when expanded */
+  }
+  
+  /* Toggle Button */
+  .toggle-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .toggle-btn:hover {
+    background-color: #45a049;
+  }

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CropAI - Agriculture Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles/styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Header Image with Application Name and Icons -->
+  <header class="header-image">
+    <div class="header-content">
+      <h1>Smart Agriculture System</h1>
+      <p> Optimized Farming Using Machine Learning and IoT</p>
+    </div>
+    <div class="header-icons">
+      <button class="icon-btn" id="settingsBtn" onclick="window.location.href = '{{ url_for('settings') }}'">
+          <i class="fas fa-cog"></i>
+      </button>
+      <button class="icon-btn" id="adminLoginBtn" onclick="window.location.href = '{{ url_for('market') }}'">
+          <i class="fas fa-user-lock"></i>
+      </button>
+  </div>
+  </header>
+
+  <!-- Side Navigation Bar -->
+  <div class="sidenav" id="sidenav">
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggleBtn">
+      <i class="fas fa-bars"></i>
+      <span class="nav-item">Menu</span>
+    </button>
+
+    <!-- Navigation Links -->
+    <a href="{{ url_for('home') }}">
+      <i class="fas fa-home"></i>
+      <span class="nav-item">Home</span>
+    </a>
+    <a href="{{ url_for('crop_recommend') }}">
+      <i class="fas fa-seedling"></i>
+      <span class="nav-item">Crop Recommendation</span>
+    </a>
+    <a href="{{ url_for('fertilizer_suggestion') }}">
+      <i class="fas fa-tint"></i>
+      <span class="nav-item">Fertilizer Suggestion</span>
+    </a>
+    <a href="{{ url_for('irrigation_advice') }}">
+      <i class="fas fa-tractor"></i>
+      <span class="nav-item">Irrigation Advice</span>
+    </a>
+    <a href="{{ url_for('rotational_crop') }}">
+      <i class="fas fa-recycle"></i>
+      <span class="nav-item">Rotational Crop</span>
+    </a>
+    <a href="{{ url_for('weather') }}">
+      <i class="fas fa-cloud-sun"></i>
+      <span class="nav-item">Weather Forecast</span>
+    </a>
+    
+    
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <!-- Introduction Section -->
+    <section class="intro-section">
+      <div class="container">
+        <h2>Agriculture</h2>
+        <p id="intro">
+            Agriculture is the backbone of human civilization, providing food, raw materials, and employment. With rapid population growth and climate challenges, 
+            <span id="moreText" class="hidden">
+                traditional farming methods alone are insufficient to meet global food demands. The **Agriculture Recommendation System** powered by **Machine Learning and IoT** offers a modern approach 
+                to enhancing agricultural productivity.  
+                <br><br>
+                This system integrates **real-time sensor data from IoT devices** such as **soil moisture sensors, temperature sensors, and humidity sensors** with **Machine Learning algorithms** 
+                to analyze environmental conditions and suggest the best-suited crops, fertilizers, and irrigation methods.  
+                <br><br>
+                By leveraging data-driven insights, farmers can make informed decisions that improve crop yield, optimize resource utilization, and reduce environmental impact. 
+                The **use of AI and predictive analytics** enables forecasting of crop diseases, market prices, and weather conditions, ensuring a **sustainable and efficient** 
+                farming ecosystem.  
+                <br><br>
+                The Agriculture Recommendation System is an **essential step towards smart farming**, bridging the gap between technology and agriculture. It empowers farmers 
+                with scientific knowledge and **IoT-driven automation**, fostering sustainable growth in the agricultural sector.
+            </span>
+        </p>
+        <button onclick="showMore()" id="readMoreBtn">Read More</button>
+    </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <h2 id="features">Features Provides</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-seedling"></i>
+          <h3>Personalized Crop Recommendations</h3>
+          <p>Get crop suggestions based on soil type, climate conditions, and historical data.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-tint"></i>
+          <h3>Optimal Fertilizer Usage</h3>
+          <p>Prevent soil degradation and improve productivity with tailored fertilizer suggestions.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-tractor"></i>
+          <h3>Efficient Irrigation Practices</h3>
+          <p>Conserve water and enhance crop growth with smart irrigation advice.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-recycle"></i>
+          <h3>Crop Rotation Strategies</h3>
+          <p>Maintain soil health and reduce pest infestations with effective crop rotation plans.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-cloud-sun"></i>
+          <h3>Weather Forecasting</h3>
+          <p>Adapt to unpredictable climate conditions with accurate weather predictions.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Real time Data</h3>
+          <p>Get real-time data on soil moisture, temperature, and humidity to optimize crop growth.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="cta-banner">
+      <div class="cta-content">
+        <h2>Ready to Transform Your Farming Experience?</h2>
+        <p>Join Smart Crop Recommendation System and take your farming today and unlock the power of smart agriculture.</p>
+      </div>
+    </section>
+  
+
+  
+  
+  
+  
+    <!-- How It Works Section -->
+  <section class="how-it-works">
+      <h2 id="Working">How It Works</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <i class="fas fa-search"></i>
+          <h3>Step 1: Select Feature</h3>
+          <p>Select the feature you want to explore.</p>
+        </div>
+        <div class="step-card">
+          <i class="fas fa-tools"></i>
+          <h3>Step 2: Input Data</h3>
+          <p>Provide details about your farm, soil, and crops.</p>
+        </div>
+        <div class="step-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Step 3: Get Insights</h3>
+          <p>Receive personalized recommendations and insights.</p>
+        </div>
+        <div class="step-card">
+          <i class="fas fa-check-circle"></i>
+          <h3>Step 4: Implement & Succeed</h3>
+          <p>Apply the suggestions and watch your farm thrive!</p>
+        </div>
+      </div>
+    </section>
+  
+  
+  
+    <!-- Partners Section -->
+
+  
+  
+    <!-- FAQ Section -->
+  <section class="faq-section">
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3>What is Agriculture Recommended System?</h3>
+          <p>It is a smart agriculture platform that uses Machine Learning and IoT to provide personalized farming recommendations.</p>
+        </div>
+        <div class="faq-card">
+          <h3>How accurate are the recommendations?</h3>
+          <p>Our recommendations are based on real-time data and advanced algorithms, ensuring high accuracy.</p>
+        </div>
+        <div class="faq-card">
+          <h3>In the platform, is it free to use?</h3>
+          <p>Yes, Agriculture Recommended System provides a user-friendly interface and offers a free tier with basic features. Premium plans are available for advanced features.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Footer Section -->
+  <footer>
+      <div class="footer-content">
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          
+            <a href="#mainContent">intro</a>
+            <a href="#features">Features</a>
+            <a href="#Working"> Working</a>
+            <a href="#faq">FAQ</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+          
+        </div>
+        <div class="footer-social">
+          <h3>Follow Us</h3>
+          <a href="{{ url_for('facebook') }}"><i class="fab fa-facebook"></i></a>
+          <a href="{{ url_for('twitter') }}"><i class="fab fa-twitter"></i></a>
+          <a href="{{ url_for('instagram') }}"><i class="fab fa-instagram"></i></a>
+          <a href="{{ url_for('linkedIn') }}"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Smart Agriculture Recommended System. All rights reserved.</p>
+      </div>
+    </footer>
+    </div>
+  </div>
+
+  <script>
+    function showMore() {
+        document.getElementById("moreText").style.display = "inline";
+        event.target.style.display = "none";
+    }
+</script>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

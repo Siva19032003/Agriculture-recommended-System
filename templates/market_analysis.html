@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/market.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+
+<!-- Side Navigation Bar -->
+<div class="sidenav" id="sidenav">
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+        <span class="nav-item">Menu</span>
+    </button>
+
+    <!-- Navigation Links -->
+    <a href="{{ url_for('home') }}">
+        <i class="fas fa-home"></i>
+        <span class="nav-item">Home</span>
+    </a>
+    <a href="{{ url_for('crop_recommend') }}">
+        <i class="fas fa-seedling"></i>
+        <span class="nav-item">Crop Recommendation</span>
+    </a>
+    <a href="{{ url_for('fertilizer_suggestion') }}">
+        <i class="fas fa-tint"></i>
+        <span class="nav-item">Fertilizer Suggestion</span>
+    </a>
+    <a href="{{ url_for('irrigation_advice') }}">
+        <i class="fas fa-tractor"></i>
+        <span class="nav-item">Irrigation Advice</span>
+    </a>
+    <a href="{{ url_for('rotational_crop') }}">
+        <i class="fas fa-recycle"></i>
+        <span class="nav-item">Rotational Crop</span>
+    </a>
+    <a href="{{ url_for('weather') }}">
+        <i class="fas fa-cloud-sun"></i>
+        <span class="nav-item">Weather Forecast</span>
+    </a>
+</div>
+
+
+
+    <header>
+        <h1>Market Analysis Dashboard</h1>
+    </header>
+
+    <main>
+        <!-- Market Overview Section -->
+        <section class="market-overview">
+            <h2>Market Overview</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Sales</h3>
+                    <p id="total-sales">150,000</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Market Growth</h3>
+                    <p id="market-growth">12.5%</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Top Product</h3>
+                    <p id="top-product">Rice</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Trends Section -->
+        <section class="market-trends">
+            <h2>Market Trends</h2>
+            <canvas id="trendsChart"></canvas>
+        </section>
+
+        <!-- Top Products Section -->
+        <section class="top-products">
+            <h2>Top Products</h2>
+            <table id="top-products-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rice</td>
+                        <td>50,000</td>
+                    </tr>
+                    <tr>
+                        <td>Wheat</td>
+                        <td>45,000</td>
+                    </tr>
+                    <tr>
+                        <td>Sugarcane</td>
+                        <td>40,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='market.js') }}"></script>
+</body>
+</html>

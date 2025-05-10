@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Recommendation - CropAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/fertilizer.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-image">
+        <div class="header-content">
+            <h1>Fertilizer Recommendation</h1>
+            <p>Choose the Correct Fertilizer to Enhance Farm Productivity</p>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn" id="settingsBtn" onclick="window.location.href = '{{ url_for('settings') }}'">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="icon-btn" id="adminLoginBtn" onclick="window.location.href = '{{ url_for('market') }}'">
+                <i class="fas fa-user-lock"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Navigation Bar -->
+    <div class="sidenav" id="sidenav">
+        <!-- Toggle Button -->
+        <button class="toggle-btn" id="toggleBtn">
+            <i class="fas fa-bars"></i>
+            <span class="nav-item">Menu</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="{{ url_for('home') }}">
+            <i class="fas fa-home"></i>
+            <span class="nav-item">Home</span>
+        </a>
+        <a href="{{ url_for('crop_recommend') }}">
+            <i class="fas fa-seedling"></i>
+            <span class="nav-item">Crop Recommendation</span>
+        </a>
+        <a href="{{ url_for('fertilizer_suggestion') }}">
+            <i class="fas fa-tint"></i>
+            <span class="nav-item">Fertilizer Suggestion</span>
+        </a>
+        <a href="{{ url_for('irrigation_advice') }}">
+            <i class="fas fa-tractor"></i>
+            <span class="nav-item">Irrigation Advice</span>
+        </a>
+        <a href="{{ url_for('rotational_crop') }}">
+            <i class="fas fa-recycle"></i>
+            <span class="nav-item">Rotational Crop</span>
+        </a>
+        <a href="{{ url_for('weather') }}">
+            <i class="fas fa-cloud-sun"></i>
+            <span class="nav-item">Weather Forecast</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Introduction Section -->
+        <section class="intro-section">
+            <h2>Fertilizer Suggestion</h2>
+            <p>
+                Fertilizer recommendation systems are advanced tools designed to assist farmers in optimizing crop yields by providing precise nutrient management solutions. These systems analyze various factors such as soil composition, crop type, climate conditions, and past agricultural data to suggest the most suitable fertilizers and their optimal application rates. By leveraging technologies like machine learning, artificial intelligence, and IoT sensors, these systems help in reducing fertilizer wastage, improving soil health, and promoting sustainable farming practices. Their implementation enhances agricultural productivity while minimizing environmental impact, making them an essential component of modern precision farming.
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 id="feature">Why Use Fertilizer Recommendation?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Optimized Nutrient Management</h3>
+                    <p>Ensures crops receive the right amount of nutrients, improving growth and yield.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tint"></i>
+                    <h3>Increased Crop Productivity</h3>
+                    <p>Helps farmers maximize crop output by providing precise fertilizer recommendations.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Improved Soil Health</h3>
+                    <p>Maintains soil fertility by recommending balanced nutrient application.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fertilizer Varieties Section -->
+        <section class="varieties-section">
+            <h2>Varieties of Fertilizers Used in Agriculture</h2>
+            <div class="varieties-grid">
+                <div class="variety-card">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Organic Fertilizers</h3>
+                    <p>
+                        Compost – Decomposed organic matter that enriches soil fertility.<br>
+                        Manure – Animal waste that provides essential nutrients.<br>
+                        Bone Meal – Rich in phosphorus, promotes root development.<br>
+                        Green Manure – Plants grown and plowed into the soil to improve nutrients.
+                    </p>
+                </div>
+                <div class="variety-card">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Inorganic (Chemical) Fertilizers</h3>
+                    <p>
+                        Nitrogen-Based Fertilizers (e.g., Urea, Ammonium Nitrate) – Boosts leaf and stem growth.<br>
+                        Phosphorus-Based Fertilizers (e.g., Superphosphate, DAP) – Enhances root and flower development.<br>
+                        Potassium-Based Fertilizers (e.g., Potash, Muriate of Potash) – Improves disease resistance and water retention.<br>
+                        Compound Fertilizers (e.g., NPK 20-20-20) – Balanced nutrients for overall plant health.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fertilizer Suggestion Form -->
+        <section class="form-section">
+            <h1 id="Fertilizer">Fertilizer Suggestion Form</h1>
+            <form action="/fertilizer_suggestion" method="POST" class="fertilizer-form">
+                <h2>Get Your Fertilizer Recommendation</h2>
+                <div class="form-group">
+                    <label for="soil_color"><i class="fas fa-palette"></i> Soil Color:</label>
+                    <select id="soil_color" name="soil_color" required>
+                        <option value="">Select Soil Color</option>
+                        <option value="Black">Black</option>
+                        <option value="Red">Red</option>
+                        <option value="Medium Brown">Medium Brown</option>
+                        <option value="Dark Brown">Dark Brown</option>
+                        <option value="Light Brown">Light Brown</option>
+                    </select>
+                </div>
+                <div class="form-group" id="soil-properties">
+                    <div>
+                        <label for="nitrogen"><i class="fas fa-atom"></i> Nitrogen (N):</label>
+                        <input type="number" id="nitrogen" name="nitrogen" placeholder="Enter nitrogen level" required>
+                    </div>
+                    <div>
+                        <label for="phosphorus"><i class="fas fa-leaf"></i> Phosphorus (P):</label>
+                        <input type="number" id="phosphorus" name="phosphorus" placeholder="Enter phosphorus level" required>
+                    </div>
+                    <div>
+                        <label for="potassium"><i class="fas fa-fire"></i> Potassium (K):</label>
+                        <input type="number" id="potassium" name="potassium" placeholder="Enter potassium level" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ph"><i class="fas fa-flask"></i> Soil pH:</label>
+                    <input type="number" id="ph" name="ph" step="0.1" placeholder="Enter soil pH" required>
+                </div>
+                <div class="form-group">
+                    <label for="temperature"><i class="fas fa-thermometer-half"></i> Temperature (°C):</label>
+                    <input type="number" id="temperature" name="temperature" placeholder="Enter temperature" required>
+                </div>
+                <div class="form-group">
+                    <label for="crop"><i class="fas fa-seedling"></i> Crop:</label>
+                    <select id="crop" name="crop" required>
+                        <option value="">Select Crop</option>
+                        <option value="Sugarcane">Sugarcane</option>
+                        <option value="Jowar">Jowar</option>
+                        <option value="Cotton">Cotton</option>
+                        <option value="Rice">Rice</option>
+                        <option value="Wheat">Wheat</option>
+                        <option value="Groundnut">Groundnut</option>
+                        <option value="Maize">Maize</option>
+                        <option value="Tur">Tur</option>
+                        <option value="Urad">Urad</option>
+                        <option value="Moong">Moong</option>
+                        <option value="Gram">Gram</option>
+                        <option value="Masoor">Masoor</option>
+                        <option value="Soybean">Soybean</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rainfall"><i class="fas fa-cloud-rain"></i> Rainfall (mm):</label>
+                    <input type="number" id="rainfall" name="rainfall" placeholder="Rainfall data will appear here" readonly>
+                    <button type="button" onclick="getLocation()">Fetch Rainfall Data</button>
+                </div>
+                <button type="submit" class="submit-btn">Suggest Fertilizer</button>
+            </form>
+        </section>
+
+        <!-- Result Section -->
+        {% if prediction %}
+        <section class="result-section">
+            <h2>Suggested Fertilizer</h2>
+            <div class="result-card">
+                <i class="fas fa-check-circle"></i>
+                <p>{{ prediction }}</p>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Back to Home Button -->
+        <div class="back-to-home">
+            <a href="{{ url_for('home') }}"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="#Fertilizer">Suggest Fertilizer</a>
+                <a href="#feature">Uses</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="{{ url_for('facebook') }}"><i class="fab fa-facebook"></i></a>
+                <a href="{{ url_for('twitter') }}"><i class="fab fa-twitter"></i></a>
+                <a href="{{ url_for('instagram') }}"><i class="fab fa-instagram"></i></a>
+                <a href="{{ url_for('linkedIn') }}"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Smart Crop agriculture recommended system. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue, query, limitToLast } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBMAW77DLSNTifqj9-o4B7fye12wn2-psA",
+          authDomain: "agriculture-recommeded-system.firebaseapp.com",
+          databaseURL: "https://agriculture-recommeded-system-default-rtdb.firebaseio.com",
+          projectId: "agriculture-recommeded-system",
+          storageBucket: "agriculture-recommeded-system.firebasestorage.app",
+          messagingSenderId: "435524847697",
+          appId: "1:435524847697:web:f71003a635ed0b35a05070",
+          measurementId: "G-H238D2QHH2"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app); // Initialize Realtime Database
+    
+        // Reference to the sensor_data node in your database
+        const sensorDataRef = ref(database, 'sensor_data');
+    
+        // Query to get the last entry
+        const recentSensorDataQuery = query(sensorDataRef, limitToLast(1));
+    
+        // Fetch and update the input fields with the most recent data
+        onValue(recentSensorDataQuery, (snapshot) => {
+          const data = snapshot.val(); // Get the data
+    
+          if (data) {
+            // Get the last entry
+            const lastEntryKey = Object.keys(data)[0];
+            const lastEntry = data[lastEntryKey];
+    
+            // Update the input fields
+            document.getElementById('temperature').value = lastEntry.temperature;
+          } else {
+            // Clear the input fields if no data is found
+            document.getElementById('temperature').value = '';
+          }
+        });
+      </script>
+
+    <script src="{{ url_for('static', filename='live_rainfall.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+
+
+</html>
+
+
+
+

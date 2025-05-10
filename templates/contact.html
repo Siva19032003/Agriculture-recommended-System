@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    .header p {
+      font-size: 18px;
+      margin: 10px 0 0;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-form, .contact-details {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .contact-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form h2, .contact-details h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+
+    .contact-form label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      height: 150px;
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #45a049;
+    }
+
+    .contact-details {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-details p {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .contact-details i {
+      margin-right: 10px;
+      color: #4CAF50;
+    }
+
+    /* Map Section */
+    .map-section {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .map-section iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    
+
+/* Side Navigation Bar */
+.sidenav {
+  height: 100%;
+  width: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #125214;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 40px;
+  z-index: 1001;
+}
+
+.sidenav a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  background-color: #45a049;
+}
+
+.sidenav .nav-item {
+  display: none;
+  margin-left: 10px;
+}
+
+.sidenav.expanded {
+  width: 250px;
+}
+
+.sidenav.expanded .nav-item {
+  display: inline;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #45a049;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <!-- Side Navigation Bar -->
+  <div class="sidenav" id="sidenav">
+      <!-- Toggle Button -->
+      <button class="toggle-btn" id="toggleBtn">
+          <i class="fas fa-bars"></i>
+          <span class="nav-item">Menu</span>
+      </button>
+
+      <!-- Navigation Links -->
+      <a href="{{ url_for('home') }}">
+          <i class="fas fa-home"></i>
+          <span class="nav-item">Home</span>
+      </a>
+      <a href="{{ url_for('crop_recommend') }}">
+          <i class="fas fa-seedling"></i>
+          <span class="nav-item">Crop Recommendation</span>
+      </a>
+      <a href="{{ url_for('fertilizer_suggestion') }}">
+          <i class="fas fa-tint"></i>
+          <span class="nav-item">Fertilizer Suggestion</span>
+      </a>
+      <a href="{{ url_for('irrigation_advice') }}">
+          <i class="fas fa-tractor"></i>
+          <span class="nav-item">Irrigation Advice</span>
+      </a>
+      <a href="{{ url_for('rotational_crop') }}">
+          <i class="fas fa-recycle"></i>
+          <span class="nav-item">Rotational Crop</span>
+      </a>
+      <a href="{{ url_for('weather') }}">
+          <i class="fas fa-cloud-sun"></i>
+          <span class="nav-item">Weather Forecast</span>
+      </a>
+  </div>
+
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you! Reach out to us for any inquiries.</p>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="contact-section">
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form action="#" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Contact Details -->
+    <div class="contact-details">
+      <h2>Contact Information</h2>
+      <p><i class="fas fa-map-marker-alt"></i> College Of Engineering, Guindy, Chennai.</p>
+      <p><i class="fas fa-phone"></i> +91 (123) 456-7890</p>
+      <p><i class="fas fa-envelope"></i> AnnauniversityStudy@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  <div class="map-section">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d996403.8379714831!2d80.4572112282861!3d12.700202720195179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52679f0d20f797%3A0x59f9f10c66e02a19!2sCollege%20of%20Engineering%2C%20Guindy!5e0!3m2!1sen!2sin!4v1742660328153!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 Smart Agriculture Recommended System. All rights reserved.</p>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

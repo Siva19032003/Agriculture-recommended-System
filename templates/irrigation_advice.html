@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irrigation Advice - CropAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/irrigation.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-image">
+        <div class="header-content">
+            <h1>Irrigation Advice</h1>
+            <p>Ensuring Efficient Irrigation Based on Soil Moisture, Weather Conditions, and Crop Requirements</p>
+        </div>
+        <div class="header-icons">
+            <div class="header-icons">
+                <button class="icon-btn" id="settingsBtn" onclick="window.location.href = '{{ url_for('settings') }}'">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="icon-btn" id="adminLoginBtn" onclick="window.location.href = '{{ url_for('market') }}'">
+                    <i class="fas fa-user-lock"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation Bar -->
+    <div class="sidenav" id="sidenav">
+        <!-- Toggle Button -->
+        <button class="toggle-btn" id="toggleBtn">
+            <i class="fas fa-bars"></i>
+            <span class="nav-item">Menu</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="{{ url_for('home') }}">
+            <i class="fas fa-home"></i>
+            <span class="nav-item">Home</span>
+        </a>
+        <a href="{{ url_for('crop_recommend') }}">
+            <i class="fas fa-seedling"></i>
+            <span class="nav-item">Crop Recommendation</span>
+        </a>
+        <a href="{{ url_for('fertilizer_suggestion') }}">
+            <i class="fas fa-tint"></i>
+            <span class="nav-item">Fertilizer Suggestion</span>
+        </a>
+        <a href="{{ url_for('irrigation_advice') }}">
+            <i class="fas fa-tractor"></i>
+            <span class="nav-item">Irrigation Advice</span>
+        </a>
+        <a href="{{ url_for('rotational_crop') }}">
+            <i class="fas fa-recycle"></i>
+            <span class="nav-item">Rotational Crop</span>
+        </a>
+        <a href="{{ url_for('weather') }}">
+            <i class="fas fa-cloud-sun"></i>
+            <span class="nav-item">Weather Forecast</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Introduction Section -->
+        <section class="intro-section">
+            <h2>Irrigation Advice</h2>
+            <p>
+                Irrigation is a critical aspect of modern agriculture, ensuring crops receive the necessary amount of water for optimal growth. However, over-irrigation or under-irrigation can lead to resource wastage, soil degradation, and reduced crop yields. Irrigation Advice Systems are designed to provide precise recommendations for efficient water usage, promoting sustainable farming practices.
+            </p>
+            <p>
+                These systems utilize data from soil moisture sensors, weather forecasts, crop requirements, and irrigation technologies to provide farmers with timely and accurate irrigation schedules. By integrating with IoT devices, machine learning algorithms, and real-time monitoring tools, these systems can help optimize water use, reduce costs, and improve crop health.
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 id="why-use">Why Use Irrigation Advice?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Weather Integration</h3>
+                    <p>Analyzes weather forecasts (rain, temperature, humidity) to adjust irrigation schedules accordingly, avoiding over-watering.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tint"></i>
+                    <h3>Water Usage Optimization</h3>
+                    <p>Provides guidelines to reduce water wastage by recommending optimal watering times and amounts, promoting water conservation.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Sustainability & Cost Efficiency</h3>
+                    <p>Promotes water-saving practices and reduces irrigation costs, leading to more sustainable farming and lower operational expenses.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Irrigation Advice Form -->
+        <section class="form-section">
+            <h1 id="form">Get Your Irrigation Advice for Your Field</h1>
+            <form action="/irrigation_advice" method="POST" class="irrigation-form">
+                
+                <div class="form-group">
+                    <label for="temperature"><i class="fas fa-thermometer-half"></i> Temperature (°C):</label>
+                    <input type="number" id="temperature" name="temperature" placeholder="Enter temperature" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="soil_moisture"><i class="fas fa-tint"></i> Soil Moisture (%):</label>
+                    <input type="number" id="soil_moisture" name="soil_moisture" placeholder="Enter soil moisture" required>
+                </div>
+                <div class="form-group">
+                    <label for="humidity"><i class="fas fa-cloud"></i> Humidity (%):</label>
+                    <input type="number" id="humidity" name="humidity" placeholder="Enter humidity" required>
+                </div>
+                <div class="form-group">
+                    <label for="pressure"><i class="fas fa-tachometer-alt"></i> Pressure (hPa):</label>
+                    <input type="number" id="pressure" name="pressure" placeholder="Pressure data will appear here" readonly>
+                    <button type="button" id="pressure-btn" onclick="getLocation()">Fetch Pressure Data</button>
+                </div>
+                <button type="submit" class="submit-btn">Get Irrigation Advice</button>
+            </form>
+        </section>
+
+        <!-- Result Section -->
+        {% if prediction %}
+        <section class="result-section">
+            <h2>Irrigation Advice</h2>
+            <div class="result-card">
+                <i class="fas fa-check-circle"></i>
+                <p>{{ prediction }}</p>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Back to Home Button -->
+        <div class="back-to-home">
+            <a href="{{ url_for('home') }}"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="#why-use">why-use</a>
+                <a href="#form">form</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="{{ url_for('facebook') }}"><i class="fab fa-facebook"></i></a>
+                <a href="{{ url_for('twitter') }}"><i class="fab fa-twitter"></i></a>
+                <a href="{{ url_for('instagram') }}"><i class="fab fa-instagram"></i></a>
+                <a href="{{ url_for('linkedIn') }}"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Smart Crop agriculture recommended system. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue, query, limitToLast } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBMAW77DLSNTifqj9-o4B7fye12wn2-psA",
+          authDomain: "agriculture-recommeded-system.firebaseapp.com",
+          databaseURL: "https://agriculture-recommeded-system-default-rtdb.firebaseio.com",
+          projectId: "agriculture-recommeded-system",
+          storageBucket: "agriculture-recommeded-system.firebasestorage.app",
+          messagingSenderId: "435524847697",
+          appId: "1:435524847697:web:f71003a635ed0b35a05070",
+          measurementId: "G-H238D2QHH2"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app); // Initialize Realtime Database
+    
+        // Reference to the sensor_data node in your database
+        const sensorDataRef = ref(database, 'sensor_data');
+    
+        // Query to get the last entry
+        const recentSensorDataQuery = query(sensorDataRef, limitToLast(1));
+    
+        // Fetch and update the input fields with the most recent data
+        onValue(recentSensorDataQuery, (snapshot) => {
+          const data = snapshot.val(); // Get the data
+    
+          if (data) {
+            // Get the last entry
+            const lastEntryKey = Object.keys(data)[0];
+            const lastEntry = data[lastEntryKey];
+    
+            // Update the input fields
+            document.getElementById('humidity').value = lastEntry.humidity;
+            document.getElementById('soil_moisture').value = lastEntry.soil_moisture;
+            document.getElementById('temperature').value = lastEntry.temperature;
+          } else {
+            // Clear the input fields if no data is found
+            document.getElementById('humidity').value = '';
+            document.getElementById('soil_moisture').value = '';
+            document.getElementById('temperature').value = '';
+          }
+        });
+      </script>
+    <script src="{{ url_for('static', filename='live_pressure.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
